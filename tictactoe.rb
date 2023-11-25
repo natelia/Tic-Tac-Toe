@@ -10,7 +10,7 @@ class Game
       [' ', ' ', ' '],
       [' ', ' ', ' ']
     ]
-    @human_player = 'X'
+    @current_player = 'X'
   end
 
   def display_board
@@ -21,6 +21,10 @@ class Game
          " #{@game_board[2][0]} | #{@game_board[2][1]} | #{@game_board[2][2]} "
   end
 
+  def getting_player_move
+    puts 'Choose your move from 1 to 9: '
+    gets.chomp.to_i
+  end
   def instructions
     puts '1 | 2 | 3',
          '---------',
@@ -28,7 +32,14 @@ class Game
          '---------',
          '7 | 8 | 9'
   end
+
+  def switch_player
+   @current_player = "X" if @current_player == "O"
+   @current_player = "O" if @current_player == "X"
+  end
+
   game = Game.new
   game.display_board
   game.instructions
+  game.getting_player_move
 end
