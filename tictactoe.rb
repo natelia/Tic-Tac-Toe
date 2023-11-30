@@ -25,6 +25,7 @@ class Game
     puts 'Choose your move from 1 to 9: '
     gets.chomp.to_i
   end
+
   def instructions
     puts '1 | 2 | 3',
          '---------',
@@ -34,8 +35,8 @@ class Game
   end
 
   def switch_player
-   @current_player = "X" if @current_player == "O"
-   @current_player = "O" if @current_player == "X"
+    @current_player = "X" if @current_player == "O"
+    @current_player = "O" if @current_player == "X"
   end
 
   game = Game.new
