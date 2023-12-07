@@ -16,7 +16,7 @@ class Game
   def display_board
     puts " #{@game_board[0][0]} | #{@game_board[0][1]} | #{@game_board[0][2]} ",
          '-----------',
-         " #{@game_board[1][1]} | #{@game_board[1][1]} | #{@game_board[1][2]} ",
+         " #{@game_board[1][0]} | #{@game_board[1][1]} | #{@game_board[1][2]} ",
          '-----------',
          " #{@game_board[2][0]} | #{@game_board[2][1]} | #{@game_board[2][2]} "
   end
@@ -34,20 +34,21 @@ class Game
       puts "Invalid move. This cell is already taken. Please try with another cell"
     end
   end
-  
+
 
   def instructions
-    puts '1 | 2 | 3',
-         '---------',
-         '4 | 5 | 6',
-         '---------',
-         '7 | 8 | 9'
+    puts ' 1 | 2 | 3 ',
+         '-----------',
+         ' 4 | 5 | 6 ',
+         '-----------',
+         ' 7 | 8 | 9 '
   end
 
   def switch_player
     @current_player = "X" if @current_player == 'O'
     @current_player = "O" if @current_player == 'X'
   end
+
 
   game = Game.new
   game.display_board
