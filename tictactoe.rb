@@ -26,15 +26,23 @@ class Game
     gets.chomp.to_i
   end
 
-  def choose_cell(row, col)
+  def choose_cell(move)
+    row, col = number_into_cell(move)
+
     if @game_board[row][col] == ' '
       @game_board[row][col] = @current_player
       switch_player
     else
       puts "Invalid move. This cell is already taken. Please try with another cell"
     end
+    display_board
   end
 
+  def number_into_cell(move)
+    row = ( move - 1 ) / 3
+    col = ( move - 1 ) % 3
+    [row, col]
+  end
 
   def instructions
     puts ' 1 | 2 | 3 ',
@@ -48,10 +56,13 @@ class Game
     @current_player = "X" if @current_player == 'O'
     @current_player = "O" if @current_player == 'X'
   end
+  
+  
 
 
   game = Game.new
   game.display_board
   game.instructions
-  game.getting_player_move
+  move = game.getting_player_move
+  game.choose_cell(move)
 end
