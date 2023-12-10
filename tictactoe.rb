@@ -19,6 +19,7 @@ class Game
          " #{@game_board[1][0]} | #{@game_board[1][1]} | #{@game_board[1][2]} ",
          '-----------',
          " #{@game_board[2][0]} | #{@game_board[2][1]} | #{@game_board[2][2]} "
+    puts
   end
 
   def getting_player_move
@@ -33,14 +34,14 @@ class Game
       @game_board[row][col] = @current_player
       switch_player
     else
-      puts "Invalid move. This cell is already taken. Please try with another cell"
+      puts 'Invalid move. This cell is already taken. Please try with another cell'
     end
     display_board
   end
 
   def number_into_cell(move)
-    row = ( move - 1 ) / 3
-    col = ( move - 1 ) % 3
+    row = (move - 1) / 3
+    col = (move - 1) % 3
     [row, col]
   end
 
@@ -53,16 +54,19 @@ class Game
   end
 
   def switch_player
-    @current_player = "X" if @current_player == 'O'
-    @current_player = "O" if @current_player == 'X'
+    @current_player = 'X' if @current_player == 'O'
+    @current_player = 'O' if @current_player == 'X'
   end
-  
-  
 
-
-  game = Game.new
-  game.display_board
-  game.instructions
-  move = game.getting_player_move
-  game.choose_cell(move)
+  def board_full?
+    @game_board.all? do |row|
+      row.all? { |cell| cell != ' ' }
+    end
+  end
 end
+
+game = Game.new
+game.display_board
+game.instructions
+move = game.getting_player_move
+game.choose_cell(move)
