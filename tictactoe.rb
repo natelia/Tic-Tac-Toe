@@ -12,6 +12,21 @@ class Game
     ]
     @current_player = 'X'
   end
+  
+  # Returns numbers of cells which player has chosen
+  def current_player_combination
+  # 1. Find all players cells
+  # 2. Translate them to single array of numbers (same as WIN_COMBINATIONS)(cell into number)
+  end
+
+  def check_if_win?
+  # 1. Check if any of WIN_COMBINATIONS includes in current player combinations  (.include?)
+  end
+  
+  def game_finished?
+    # check_if_win || board_full?
+    board_full?
+  end
 
   def display_board
     puts " #{@game_board[0][0]} | #{@game_board[0][1]} | #{@game_board[0][2]} ",
@@ -31,10 +46,19 @@ class Game
     row, col = number_into_cell(move)
 
     if @game_board[row][col] == ' '
-      @game_board[row][col] = @current_player
-      switch_player
+      @game_board[row][col] = @current_player 
+      true
     else
-      puts 'Invalid move. This cell is already taken. Please try with another cell'
+      false
+    end
+  end
+
+  def player_move 
+    correct_move = false
+    until correct_move == true
+      move = getting_player_move
+      correct_move = choose_cell(move)
+      puts 'Invalid move. This cell is already taken. Please try with another cell' unless correct_move
     end
     display_board
   end
@@ -53,9 +77,13 @@ class Game
          ' 7 | 8 | 9 '
   end
 
+
   def switch_player
-    @current_player = 'X' if @current_player == 'O'
-    @current_player = 'O' if @current_player == 'X'
+    if @current_player == "X"
+      @current_player = "O"
+    else
+      @current_player = "X"
+    end
   end
 
   def board_full?
@@ -63,10 +91,22 @@ class Game
       row.all? { |cell| cell != ' ' }
     end
   end
+ 
+  def start
+    puts 'Have fun!'
+    display_board
+    instructions
+    until game_finished? do 
+      player_move
+      switch_player
+    end
+  end
+
 end
 
+
 game = Game.new
-game.display_board
-game.instructions
+game.start
+
 move = game.getting_player_move
 game.choose_cell(move)
