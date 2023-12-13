@@ -12,20 +12,34 @@ class Game
     ]
     @current_player = 'X'
   end
-  
+
   # Returns numbers of cells which player has chosen
   def current_player_combination
-  # 1. Find all players cells
-  # 2. Translate them to single array of numbers (same as WIN_COMBINATIONS)(cell into number)
+    player_cells = []
+
+    flat_board = @game_board.flatten
+
+    flat_board.each_with_index do |cell, index|
+      cell_number = index + 1
+
+      player_cells << cell_number if cell == @current_player
+    end
+    puts "Player #{@current_player}'s combination: #{player_cells}"
+    player_cells
+    # 1. Find all players cells
+    # 2. Translate them to single array of numbers (same as WIN_COMBINATIONS)(cell into number)
   end
 
   def check_if_win?
-  # 1. Check if any of WIN_COMBINATIONS includes in current player combinations  (.include?)
+    player_cells = current_player_combination
+
+    WIN_COMBINATIONS.include?(player_cells)
+
+    # 1. Check if any of WIN_COMBINATIONS includes in current player combinations  (.include?)
   end
-  
+
   def game_finished?
-    # check_if_win || board_full?
-    board_full?
+    board_full? || check_if_win?
   end
 
   def display_board
@@ -35,7 +49,7 @@ class Game
          '-----------',
          " #{@game_board[2][0]} | #{@game_board[2][1]} | #{@game_board[2][2]} "
     puts
-  end
+  end 
 
   def getting_player_move
     puts 'Choose your move from 1 to 9: '
@@ -53,7 +67,7 @@ class Game
     end
   end
 
-  def player_move 
+  def player_move
     correct_move = false
     until correct_move == true
       move = getting_player_move
@@ -77,12 +91,11 @@ class Game
          ' 7 | 8 | 9 '
   end
 
-
   def switch_player
-    if @current_player == "X"
-      @current_player = "O"
+    if @current_player == 'X'
+      @current_player = 'O'
     else
-      @current_player = "X"
+      @current_player = 'X'
     end
   end
 
@@ -99,6 +112,11 @@ class Game
     until game_finished? do 
       player_move
       switch_player
+
+      if check_if_win?
+        puts "Player #{@current_player} wins!"
+        break
+      end
     end
   end
 
