@@ -30,14 +30,6 @@ class Game
     # 2. Translate them to single array of numbers (same as WIN_COMBINATIONS)(cell into number)
   end
 
-  def check_if_win?
-    player_cells = current_player_combination
-
-    WIN_COMBINATIONS.include?(player_cells)
-
-    # 1. Check if any of WIN_COMBINATIONS includes in current player combinations  (.include?)
-  end
-
   def game_finished?
     board_full? || check_if_win?
   end
@@ -54,6 +46,14 @@ class Game
   def getting_player_move
     puts 'Choose your move from 1 to 9: '
     gets.chomp.to_i
+  end
+
+  def check_if_win?
+    player_cells = current_player_combination
+
+    WIN_COMBINATIONS.include?(player_cells)
+
+    # 1. Check if any of WIN_COMBINATIONS includes in current player combinations  (.include?)
   end
 
   def choose_cell(move)
