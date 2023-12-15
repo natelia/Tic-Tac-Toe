@@ -111,12 +111,13 @@ class Game
     instructions
     until game_finished? do 
       player_move
-      switch_player
 
       if check_if_win?
         puts "Player #{@current_player} wins!"
         break
       end
+
+      switch_player
     end
   end
 
