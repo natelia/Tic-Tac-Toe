@@ -1,8 +1,8 @@
 class Game
   WIN_COMBINATIONS = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 4], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6]
+    [1, 2, 3], [4, 5, 6], [7, 8, 9],
+    [1, 4, 5], [2, 5, 8], [3, 6, 9],
+    [1, 5, 9], [3, 5, 7]
   ]
   def initialize
     @game_board = [
@@ -41,17 +41,19 @@ class Game
          '-----------',
          " #{@game_board[2][0]} | #{@game_board[2][1]} | #{@game_board[2][2]} "
     puts
-  end 
+  end
 
   def getting_player_move
-    puts 'Choose your move from 1 to 9: '
+    puts "#{@current_player} choose your move from 1 to 9: "
     gets.chomp.to_i
   end
 
   def check_if_win?
     player_cells = current_player_combination
 
-    WIN_COMBINATIONS.include?(player_cells)
+    WIN_COMBINATIONS.any? do |win|
+      win.all? { |cell| player_cells.include?(cell) }
+    end
 
     # 1. Check if any of WIN_COMBINATIONS includes in current player combinations  (.include?)
   end
@@ -60,7 +62,7 @@ class Game
     row, col = number_into_cell(move)
 
     if @game_board[row][col] == ' '
-      @game_board[row][col] = @current_player 
+      @game_board[row][col] = @current_player
       true
     else
       false
@@ -104,7 +106,7 @@ class Game
       row.all? { |cell| cell != ' ' }
     end
   end
- 
+
   def start
     puts 'Have fun!'
     display_board
@@ -120,9 +122,7 @@ class Game
       switch_player
     end
   end
-
 end
-
 
 game = Game.new
 game.start
