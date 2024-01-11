@@ -59,6 +59,11 @@ class Game
   end
 
   def choose_cell(move)
+    unless (1..9).include?(move)
+      puts "Invalid move. Please choose a number from 1 to 9."
+      return false
+    end
+    
     row, col = number_into_cell(move)
 
     if @game_board[row][col] == ' '
