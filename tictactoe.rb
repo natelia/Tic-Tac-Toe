@@ -60,10 +60,10 @@ class Game
 
   def choose_cell(move)
     unless (1..9).include?(move)
-      puts "Invalid move. Please choose a number from 1 to 9."
+      puts 'Invalid move. Please choose a number from 1 to 9.'
       return false
     end
-    
+
     row, col = number_into_cell(move)
 
     if @game_board[row][col] == ' '
@@ -99,11 +99,12 @@ class Game
   end
 
   def switch_player
-    if @current_player == 'X'
-      @current_player = 'O'
-    else
-      @current_player = 'X'
-    end
+    @current_player = case @current_player
+                      when 'X'
+                        'O'
+                      else
+                        'X'
+                      end
   end
 
   def board_full?
@@ -113,10 +114,9 @@ class Game
   end
 
   def start
-    puts 'Have fun!'
     display_board
     instructions
-    until game_finished? do 
+    until game_finished?
       player_move
 
       if check_if_win?
